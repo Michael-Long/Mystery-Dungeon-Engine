@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9768af6f7d6f984795b5c14529a24b9, type: 3}
+  m_Name: 14_Hail
+  m_EditorClassIdentifier: 
+  id: 14
+  inGameText:
+    moveName: Hail
+    moveCategory: '"Basic Information"[CS:E][BAR][CR]\nChanges the floor''s weather
+      to a [LS:2656]Hail[LE]\ncondition.\n\n\n\n\nSelect detail:[CLUM_SET:70][M:B4]
+      or [M:B5]/View detail: [M:B2]\nDetailed Information:[CLUM_SET:108][M:B20]\n[C]\n"Detailed
+      Information"[CS:E][BAR][CR]\nRange:[CLUM_SET:36] Floor\nType:[CLUM_SET:36]
+      Ice/Other\nHit Ratio[CLUM_SET:54]:[CLUM_SET:62][move_hit_ratio]\nPower[CLUM_SET:54]:[CLUM_SET:62][move_power]\n\n\n\nBasic
+      Information:[CLUM_SET:100][M:B20]'
+  primaryType: 6
+  category: 2
+  basePower: 0
+  basePP: 13
+  accuracy: 125
+  target: 9
+  moveScript: {fileID: 0}

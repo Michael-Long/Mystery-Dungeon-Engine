@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4061115567bf8ae46955c7bf31a1115e, type: 3}
+  m_Name: 38_Ninetales
+  m_EditorClassIdentifier: 
+  creatureNo: 38
+  species: Ninetales
+  category: Fox
+  possibleGender: 3
+  primaryType: 2
+  secondaryType: 0
+  evolution:
+  - nextEvo: 37
+    evolutionType: 3
+    evolutionRequirement: 146
+    optionalEvolutionItem: 0
+  primaryAbility: {fileID: 0}
+  secondaryAbility: {fileID: 0}
+  secretAbility: {fileID: 0}
+  movementType: 2
+  bodySize: 1
+  size: 36
+  weight: 153
+  recruitRate: -45
+  recruitRate2: -45
+  iQGroup: {fileID: 0}
+  expYield: 71
+  exclusiveItems: []
+  baseStats:
+    HP: 24
+    attack: 4
+    defense: 4
+    spAttack: 4
+    spDefense: 4
+  totalStats:
+    HP: 136
+    attack: 94
+    defense: 85
+    spAttack: 94
+    spDefense: 87
+  experienceFormula: 2
+  totalExp: 2260064
+  levelUpMoves:
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 3
+  eggMoves: []
+  tmMoves: []

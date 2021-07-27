@@ -1,0 +1,5 @@
+Wow, this is crazy
+This is a test for <b>bold</b> tags.
+What about <i>wow</i> tags?
+Big Test Here. A <b><i>nested</i></b> tag! Prob not working rn
+I'm some dialog!

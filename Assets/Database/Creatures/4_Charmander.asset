@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4061115567bf8ae46955c7bf31a1115e, type: 3}
+  m_Name: 4_Charmander
+  m_EditorClassIdentifier: 
+  creatureNo: 4
+  species: Charmander
+  category: Lizard
+  possibleGender: 3
+  primaryType: 2
+  secondaryType: 0
+  evolution:
+  - nextEvo: 0
+    evolutionType: 0
+    evolutionRequirement: 0
+    optionalEvolutionItem: 0
+  primaryAbility: {fileID: 0}
+  secondaryAbility: {fileID: 0}
+  secretAbility: {fileID: 0}
+  movementType: 2
+  bodySize: 1
+  size: 26
+  weight: 153
+  recruitRate: 82
+  recruitRate2: 82
+  iQGroup: {fileID: 0}
+  expYield: 10
+  exclusiveItems: []
+  baseStats:
+    HP: 22
+    attack: 3
+    defense: 3
+    spAttack: 4
+    spDefense: 2
+  totalStats:
+    HP: 157
+    attack: 121
+    defense: 117
+    spAttack: 127
+    spDefense: 117
+  experienceFormula: 2
+  totalExp: 2639350
+  levelUpMoves:
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 7
+  - move: {fileID: 0}
+    level: 10
+  - move: {fileID: 0}
+    level: 16
+  - move: {fileID: 0}
+    level: 19
+  - move: {fileID: 0}
+    level: 25
+  - move: {fileID: 0}
+    level: 28
+  - move: {fileID: 0}
+    level: 34
+  - move: {fileID: 0}
+    level: 37
+  eggMoves: []
+  tmMoves: []

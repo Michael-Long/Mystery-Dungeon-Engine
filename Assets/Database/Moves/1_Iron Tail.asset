@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9768af6f7d6f984795b5c14529a24b9, type: 3}
+  m_Name: 1_Iron Tail
+  m_EditorClassIdentifier: 
+  id: 1
+  inGameText:
+    moveName: Iron Tail
+    moveCategory: '"Basic Information"[CS:E][BAR][CR]\nInflicts damage on the target.
+      It may\nalso reduce the target''s [CS:E]Defense[CR] by\n1 level.\n\n\n\n\nDetailed
+      Information:[CLUM_SET:108][M:B20]\n[C]\n"Detailed Information"[CS:E][BAR][CR]\nRange:[CLUM_SET:36]
+      Enemy in front\nType:[CLUM_SET:36] Steel/Physical\nHit Ratio[CLUM_SET:54]:[CLUM_SET:62][move_hit_ratio]\nPower[CLUM_SET:54]:[CLUM_SET:62][move_power]\n\n\n\nBasic
+      Information:[CLUM_SET:100][M:B20]'
+  primaryType: 17
+  category: 0
+  basePower: 40
+  basePP: 10
+  accuracy: 78
+  target: 0
+  moveScript: {fileID: 0}
