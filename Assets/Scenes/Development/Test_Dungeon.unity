@@ -1137,7 +1137,7 @@ GameObject:
   - component: {fileID: 314907332}
   - component: {fileID: 314907334}
   - component: {fileID: 314907333}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: EnemyCircleAI_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,8 +1211,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 769954955
-  m_SortingLayer: 0
+  m_SortingLayerID: 1927041691
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -8631593280851036882, guid: 8b6d232ca15c3b04f8604299390e93b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1946,7 +1946,7 @@ GameObject:
   - component: {fileID: 528721732}
   - component: {fileID: 528721734}
   - component: {fileID: 528721733}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: TeammateCircleAI_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2020,8 +2020,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 769954955
-  m_SortingLayer: 0
+  m_SortingLayerID: 1927041691
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -132118928977814952, guid: 61c930b3676cc224fa2a5e21a54ca503, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4010,7 +4010,7 @@ GameObject:
   - component: {fileID: 1178187570}
   - component: {fileID: 1178187569}
   - component: {fileID: 1178187568}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: TeammateCircleAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4593,7 +4593,7 @@ GameObject:
   - component: {fileID: 1386027310}
   - component: {fileID: 1386027309}
   - component: {fileID: 1386027308}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: EnemyCircleAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6397,6 +6397,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 3.25
       objectReference: {fileID: 0}
+    - target: {fileID: 2216182451226094748, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: m_AnimationType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4314398300181112710, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
       propertyPath: m_Name
       value: Test_Player
@@ -6444,6 +6448,14 @@ PrefabInstance:
     - target: {fileID: 5272421677425909469, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723171151778137472, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723171151778137472, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1927041691
       objectReference: {fileID: 0}
     - target: {fileID: 7392321940251056922, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
       propertyPath: m_Size.x

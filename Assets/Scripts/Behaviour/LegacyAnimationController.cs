@@ -51,8 +51,12 @@ namespace Assets.Logic.Animation {
 
         public void StartNewAnimation(AnimationType newType, AnimationDirection newDirection)
         {
+            if (newType == m_AnimationType && newDirection == m_AnimationDirection)
+                return;
             StopCoroutine(AnimationCycle);
             nextFrameIndex = 0;
+            m_AnimationType = newType;
+            m_AnimationDirection = newDirection;
             selectedGroup = AnimationData.AnimationGroups[(int)newType].group;
             selectedSequence = selectedGroup.AnimationSequenceList[(int)newDirection];
             AnimationCycle = StartCoroutine(UpdateAnimation());
