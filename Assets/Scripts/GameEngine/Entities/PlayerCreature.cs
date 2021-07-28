@@ -96,6 +96,10 @@ namespace Assets.GameEngine.Entities
                 if (VerifyMovement.CanMove(this, targetPos))
                 {
                     StartCoroutine(MovePlayer(targetPos));
+                } 
+                else
+                {
+                    AnimationController.StartNewAnimation(AnimationType.Idle, AnimationHelper.convertMovementToDirection(transform.position, targetPos));
                 }
             }
         }
@@ -126,8 +130,8 @@ namespace Assets.GameEngine.Entities
             }
             transform.position = targetPos;
             isMoving = false;
-            // #BUG: walking animation cancels even if player is still walking.
-            AnimationController.StartNewAnimation(AnimationType.Idle, direction);
+            if (Controls.GetPressedPlayerControls().Count == 0)
+                AnimationController.StartNewAnimation(AnimationType.Idle, direction);
             Destroy(blockMovement);
         }
     }
