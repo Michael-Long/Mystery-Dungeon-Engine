@@ -12,8 +12,6 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
         public string dungeonName = "New Dungeon";
         [Tooltip("A list of all the dungeon levels within this dungeon. We need at least 1 floor to be able to enter this dungeon.")]
         public List<DungeonLevel> dungeonLevels;
-        [Tooltip("Which enviroment controller is this dungeon using?")]
-        public EnviromentController enviroment;
         // Add a list of restrictions for this dungeon
 
         private int currentFloor = 0;
