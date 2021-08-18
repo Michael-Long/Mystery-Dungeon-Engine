@@ -8,14 +8,14 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
     public class Room
     {
         private (int, int) bounds;
-        private (int, int) topLeftCorner;
+        private (int, int) bottomLeftCorner;
         private List<(int, int)> exits;
         private bool isMonsterHouse;
 
         public Room(int x, int y)
         {
             bounds = (x, y);
-            topLeftCorner = (0, 0);
+            bottomLeftCorner = (0, 0);
             exits = new List<(int, int)>();
             isMonsterHouse = false;
         }
@@ -31,12 +31,12 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
 
         public (int, int) getRoomCorner()
         {
-            return topLeftCorner;
+            return bottomLeftCorner;
         }
 
         public void setRoomCorner(int x, int y)
         {
-            topLeftCorner = (x, y);
+            bottomLeftCorner = (x, y);
         }
 
         public List<(int, int)> getRoomExits()
@@ -44,11 +44,15 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
             return exits;
         }
 
-        public void addRoomExit(int x, int y)
+        public bool addRoomExit(int x, int y)
         {
             // Should verify that it's on the edge of the room
             if (validRoomExit(x, y))
+            {
                 exits.Add((x, y));
+                return true;
+            }
+            return false;
         }
 
         public void clearRoomExits()
@@ -66,18 +70,39 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
             isMonsterHouse = isMH;
         }
 
+        public bool isCoordWithinRoom(int x, int y)
+        {
+            if (x < bottomLeftCorner.Item1 - 1 || y < bottomLeftCorner.Item2 - 1)
+                return false;
+            if (x > bottomLeftCorner.Item1 + bounds.Item1 + 1 || y > bottomLeftCorner.Item2 + bounds.Item2 + 1)
+                return false;
+            // Could be either inside the room or an exit.
+            foreach ((int, int) exit in exits)
+            {
+                if (exit.Item1 == x && exit.Item2 == y)
+                    return true;
+            }
+            // Could either be inside the room or along the edge
+            if (x < bottomLeftCorner.Item1 || y < bottomLeftCorner.Item2)
+                return false;
+            if (x > bottomLeftCorner.Item1 + bounds.Item1 || y > bottomLeftCorner.Item2)
+                return false;
+            // Within the room
+            return true;
+        }
+
         private bool validRoomExit(int x, int y)
         {
-            if (x == topLeftCorner.Item1 - 1 || x == topLeftCorner.Item1 + bounds.Item1 + 1)
+            if (x == bottomLeftCorner.Item1 - 1 || x == bottomLeftCorner.Item1 + bounds.Item1 + 1)
             {
                 // This would be valid along the vertical edges
-                return MathUtil.isBetweenInclusive(y, topLeftCorner.Item2, topLeftCorner.Item2 + bounds.Item2);
+                return MathUtil.isBetweenInclusive(y, bottomLeftCorner.Item2, bottomLeftCorner.Item2 + bounds.Item2);
 
             }
-            else if (MathUtil.isBetweenInclusive(x, topLeftCorner.Item1, topLeftCorner.Item1 + bounds.Item1))
+            else if (MathUtil.isBetweenInclusive(x, bottomLeftCorner.Item1, bottomLeftCorner.Item1 + bounds.Item1))
             {
                 // Only two heights will be valid
-                return y == topLeftCorner.Item2 - 1 || y == topLeftCorner.Item2 + bounds.Item2 + 1;
+                return y == bottomLeftCorner.Item2 - 1 || y == bottomLeftCorner.Item2 + bounds.Item2 + 1;
             }
             return false;
         }

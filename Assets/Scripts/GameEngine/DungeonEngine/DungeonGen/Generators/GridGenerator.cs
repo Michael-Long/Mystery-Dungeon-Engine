@@ -21,6 +21,11 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                 room.setRoomCorner(topLeftCornerX, topLeftCornerY);
             }
 
+            public bool isCoordFloor(int x, int y)
+            {
+                return room.isCoordWithinRoom(x, y);
+            }
+
             public (int, int) bounds { get; set; } // x, y
             public Room room { get; set; }
         }
@@ -43,16 +48,18 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
         }
 
         // This will generate a dungeon level with a 5x5 grid of rooms, each of which connected to each other
-        public override void GenerateLevel(int xRadius, int yRadius)
+        public override bool[,] GenerateLevel(int xRadius, int yRadius)
         {
-            List<List<GridEntry>> grid = CreateGrid(xRadius, yRadius);
+            bool[,] dungeonMap = new bool[xRadius, yRadius];
+            // roomGrid splits our working map into a 5x5, with a room in each section. All adjacent rooms are connected.
+            List<List<GridEntry>> roomGrid = CreateGrid(xRadius, yRadius);
 
-            for (int rowIndex = 0; rowIndex < grid.Count; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < roomGrid.Count; ++rowIndex)
             {
-                for (int colIndex = 0; colIndex < grid[rowIndex].Count; ++colIndex)
+                for (int colIndex = 0; colIndex < roomGrid[rowIndex].Count; ++colIndex)
                 {
-                    (int, int) xRange = (0, grid[rowIndex][colIndex].bounds.Item1);
-                    (int, int) yRange = (0, grid[rowIndex][colIndex].bounds.Item2);
+                    (int, int) xRange = (0, roomGrid[rowIndex][colIndex].bounds.Item1);
+                    (int, int) yRange = (0, roomGrid[rowIndex][colIndex].bounds.Item2);
 
                     if (System.Math.Abs(xRange.Item1 - xRange.Item2) > 2)
                     {
@@ -70,7 +77,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
 
                     (int, int) roomBounds = (Random.Range(4, xRange.Item2 - topLeft.Item1), Random.Range(4, yRange.Item2 - topLeft.Item2));
 
-                    grid[rowIndex][colIndex].makeRoom(roomBounds.Item1, roomBounds.Item2, topLeft.Item1, topLeft.Item2);
+                    roomGrid[rowIndex][colIndex].makeRoom(roomBounds.Item1, roomBounds.Item2, topLeft.Item1, topLeft.Item2);
 
                     for (int index = 0; index < 4; ++index)
                     {
@@ -79,29 +86,37 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                             case 0:
                                 if (colIndex == 0)
                                     break;
-                                grid[rowIndex][colIndex].room.addRoomExit(topLeft.Item1 - 1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
+                                roomGrid[rowIndex][colIndex].room.addRoomExit(topLeft.Item1 - 1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
                                 break;
                             case 1:
                                 if (rowIndex == 0)
                                     break;
-                                grid[rowIndex][colIndex].room.addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 - 1);
+                                roomGrid[rowIndex][colIndex].room.addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 - 1);
                                 break;
                             case 2:
-                                if (colIndex == grid[rowIndex].Count - 1)
+                                if (colIndex == roomGrid[rowIndex].Count - 1)
                                     break;
-                                grid[rowIndex][colIndex].room.addRoomExit(topLeft.Item1 + roomBounds.Item1 + 1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
+                                roomGrid[rowIndex][colIndex].room.addRoomExit(topLeft.Item1 + roomBounds.Item1 + 1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
                                 break;
                             case 3:
-                                if (rowIndex == grid.Count - 1)
+                                if (rowIndex == roomGrid.Count - 1)
                                     break;
-                                grid[rowIndex][colIndex].room.addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 + roomBounds.Item2 + 1);
+                                roomGrid[rowIndex][colIndex].room.addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 + roomBounds.Item2 + 1);
                                 break;
                         }
                     }
                 }
             }
 
-            bool stop = true;
+            for (int x = 0; x < xRadius; ++x)
+            {
+                for (int y = 0; y < yRadius; ++y)
+                {
+                    dungeonMap[x,y] = roomGrid[x / (xRadius / 5)][y / (yRadius / 5)].isCoordFloor(x, y);
+                }
+            }
+
+            return dungeonMap;
         }
     }
 }

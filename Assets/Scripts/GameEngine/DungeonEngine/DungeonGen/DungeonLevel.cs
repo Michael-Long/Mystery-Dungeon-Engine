@@ -22,7 +22,18 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
 
         public void GenerateFloor()
         {
-            generators[Random.Range(0, generators.Count - 1)].GenerateLevel(xRadius, yRadius);
+            bool[,] dungeonMap = generators[Random.Range(0, generators.Count - 1)].GenerateLevel(xRadius, yRadius);
+
+            for (int x = 0; x < xRadius; ++x)
+            {
+                for (int y = 0; y < yRadius; ++y)
+                {
+                    if (dungeonMap[x,y])
+                    {
+                        
+                    }
+                }
+            }
         }
     }
 }
