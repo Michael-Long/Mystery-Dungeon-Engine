@@ -8,45 +8,6 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
     [CreateAssetMenu(fileName = "GridGenerator", menuName = "ScriptableObjects/Generators/GridGenerator", order = 1)]
     public class GridGenerator : GeneratorInterface
     {
-        //private class GridEntry
-        //{
-        //    public GridEntry(int x, int y)
-        //    {
-        //        bounds = (x, y);
-        //    }
-
-        //    public void makeRoom(int xBound, int yBound, int bottomLeftCornerX, int bottomLeftCornerY)
-        //    {
-        //        room = new Room(xBound, yBound);
-        //        room.setRoomCorner(bottomLeftCornerX, bottomLeftCornerY);
-        //    }
-
-        //    public bool isCoordFloor(int x, int y)
-        //    {
-        //        return room.isCoordWithinRoom(x, y);
-        //    }
-
-        //    public (int, int) bounds { get; set; } // x, y
-        //    public Room room { get; set; }
-        //}
-
-        //List<List<GridEntry>> CreateGrid(int xRadius, int yRadius)
-        //{
-        //    (int, int) gridBounds = (xRadius / 5, yRadius / 5);
-        //    List<List<GridEntry>> grid = new List<List<GridEntry>>();
-        //    for (int rowIndex = 0; rowIndex < 5; ++rowIndex)
-        //    {
-        //        List<GridEntry> gridRow = new List<GridEntry>();
-        //        for (int colIndex = 0; colIndex < 5; ++colIndex)
-        //        {
-        //            gridRow.Add(new GridEntry(gridBounds.Item1, gridBounds.Item2));
-        //        }
-        //        grid.Add(gridRow);
-        //    }
-
-        //    return grid;
-        //}
-
         // This will generate a dungeon level with a 5x5 grid of rooms, each of which connected to each other
         public override bool[,] GenerateLevel(int xRadius, int yRadius)
         {
@@ -59,27 +20,34 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
             {
                 for (int xIndex = 0; xIndex < 5; ++xIndex)
                 {
-                    (int, int) xRange = (xIndex * gridOffset.Item1, xIndex * gridOffset.Item1 + gridOffset.Item1);
-                    (int, int) yRange = (yIndex * gridOffset.Item2, yIndex * gridOffset.Item2 + gridOffset.Item2);
+                    (int, int) xRange = (xIndex * gridOffset.Item1, xIndex * gridOffset.Item1 + gridOffset.Item1 - 1);
+                    (int, int) yRange = (yIndex * gridOffset.Item2, yIndex * gridOffset.Item2 + gridOffset.Item2 - 1);
 
                     if (System.Math.Abs(xRange.Item1 - xRange.Item2) > 2)
                     {
-                        xRange.Item1 += 2;
-                        xRange.Item2 -= 2;
+                        xRange.Item1 += 1;
+                        xRange.Item2 -= 1;
                     }
 
                     if (System.Math.Abs(yRange.Item1 - yRange.Item2) > 2)
                     {
-                        yRange.Item1 += 2;
-                        yRange.Item2 -= 2;
+                        yRange.Item1 += 1;
+                        yRange.Item2 -= 1;
                     }
 
                     // Bounds don't respect the border of the map. The position of the bottomLeft corner affects the room bounds.
                     // And the minimum bounds affect the position of the bottomLeft corner
+                    (int, int) minRoomBounds = (4, 4);
 
-                    (int, int) bottomLeft = (Random.Range(xRange.Item1 + 1, xRange.Item2 - 1), Random.Range(yRange.Item1 + 1, yRange.Item2 - 1));
-                    
-                    (int, int) roomBounds = (Random.Range(4, xRange.Item2 - bottomLeft.Item1), Random.Range(4, yRange.Item2 - bottomLeft.Item2));
+                    int bottomLeftX = Random.Range(xRange.Item1 + minRoomBounds.Item1, xRange.Item2 - minRoomBounds.Item1);
+                    int bottomLeftY = Random.Range(yRange.Item1 + minRoomBounds.Item2, yRange.Item2 - minRoomBounds.Item2);
+
+                    (int, int) bottomLeft = (bottomLeftX, bottomLeftY);
+
+                    int roomBoundsX = Random.Range(minRoomBounds.Item1, xRange.Item2 - bottomLeft.Item1);
+                    int roomBoundsY = Random.Range(minRoomBounds.Item2, yRange.Item2 - bottomLeft.Item2);
+
+                    (int, int) roomBounds = (roomBoundsX, roomBoundsY);
 
                     roomMap[yIndex, xIndex] = new Room(roomBounds.Item1, roomBounds.Item2);
                     roomMap[yIndex, xIndex].setRoomCorner(bottomLeft.Item1, bottomLeft.Item2);
