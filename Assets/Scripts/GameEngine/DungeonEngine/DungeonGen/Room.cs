@@ -37,7 +37,6 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
         public void setRoomCorner(int x, int y)
         {
             bottomLeftCorner = (x, y);
-            topRightCorner = (x + bounds.Item1, y + bounds.Item2);
         }
 
         public List<(int, int)> getRoomExits()
