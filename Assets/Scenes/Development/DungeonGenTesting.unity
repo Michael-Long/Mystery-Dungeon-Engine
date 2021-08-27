@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xRadius: 100
   yRadius: 100
+  enviroment: {fileID: -7673420602356593437, guid: 2245fb6031c36f94792abf3c48ade0df, type: 3}
   generators:
   - {fileID: 11400000, guid: 58a2b4754e27bb4418677b9cac01fef8, type: 2}
 --- !u!1001 &1554121131

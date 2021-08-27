@@ -9,6 +9,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
     {
         private (int, int) bounds;
         private (int, int) bottomLeftCorner;
+        private (int, int) topRightCorner;
         private List<(int, int)> exits;
         private bool isMonsterHouse;
 
@@ -37,6 +38,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
         public void setRoomCorner(int x, int y)
         {
             bottomLeftCorner = (x, y);
+            topRightCorner = (x + bounds.Item1, y + bounds.Item2);
         }
 
         public List<(int, int)> getRoomExits()
@@ -93,7 +95,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
 
         private bool validRoomExit(int x, int y)
         {
-            if (x == bottomLeftCorner.Item1 - 1 || x == bottomLeftCorner.Item1 + bounds.Item1 + 1)
+            if (x == bottomLeftCorner.Item1 - 1 || x == bottomLeftCorner.Item1 + bounds.Item1)
             {
                 // This would be valid along the vertical edges
                 return MathUtil.isBetweenInclusive(y, bottomLeftCorner.Item2, bottomLeftCorner.Item2 + bounds.Item2);
@@ -102,7 +104,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
             else if (MathUtil.isBetweenInclusive(x, bottomLeftCorner.Item1, bottomLeftCorner.Item1 + bounds.Item1))
             {
                 // Only two heights will be valid
-                return y == bottomLeftCorner.Item2 - 1 || y == bottomLeftCorner.Item2 + bounds.Item2 + 1;
+                return y == bottomLeftCorner.Item2 - 1 || y == bottomLeftCorner.Item2 + bounds.Item2;
             }
             return false;
         }
