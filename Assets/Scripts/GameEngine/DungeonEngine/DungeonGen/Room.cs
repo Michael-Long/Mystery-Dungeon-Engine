@@ -9,7 +9,6 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
     {
         private (int, int) bounds;
         private (int, int) bottomLeftCorner;
-        private (int, int) topRightCorner;
         private List<(int, int)> exits;
         private bool isMonsterHouse;
 

@@ -15,10 +15,10 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
         //        bounds = (x, y);
         //    }
 
-        //    public void makeRoom(int xBound, int yBound, int topLeftCornerX, int topLeftCornerY)
+        //    public void makeRoom(int xBound, int yBound, int bottomLeftCornerX, int bottomLeftCornerY)
         //    {
         //        room = new Room(xBound, yBound);
-        //        room.setRoomCorner(topLeftCornerX, topLeftCornerY);
+        //        room.setRoomCorner(bottomLeftCornerX, bottomLeftCornerY);
         //    }
 
         //    public bool isCoordFloor(int x, int y)
@@ -74,12 +74,15 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                         yRange.Item2 -= 2;
                     }
 
-                    (int, int) topLeft = (Random.Range(xRange.Item1 + 1, xRange.Item2 - 1), Random.Range(yRange.Item1 + 1, yRange.Item2 - 1));
+                    // Bounds don't respect the border of the map. The position of the bottomLeft corner affects the room bounds.
+                    // And the minimum bounds affect the position of the bottomLeft corner
 
-                    (int, int) roomBounds = (Random.Range(4, xRange.Item2 - topLeft.Item1), Random.Range(4, yRange.Item2 - topLeft.Item2));
+                    (int, int) bottomLeft = (Random.Range(xRange.Item1 + 1, xRange.Item2 - 1), Random.Range(yRange.Item1 + 1, yRange.Item2 - 1));
+                    
+                    (int, int) roomBounds = (Random.Range(4, xRange.Item2 - bottomLeft.Item1), Random.Range(4, yRange.Item2 - bottomLeft.Item2));
 
                     roomMap[yIndex, xIndex] = new Room(roomBounds.Item1, roomBounds.Item2);
-                    roomMap[yIndex, xIndex].setRoomCorner(topLeft.Item1, topLeft.Item2);
+                    roomMap[yIndex, xIndex].setRoomCorner(bottomLeft.Item1, bottomLeft.Item2);
 
                     for (int index = 0; index < 4; ++index)
                     {
@@ -88,22 +91,22 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                             case 0:
                                 if (xIndex == 0)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(topLeft.Item1 - 1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
+                                roomMap[yIndex, xIndex].addRoomExit(bottomLeft.Item1 - 1, Random.Range(bottomLeft.Item2, bottomLeft.Item2 + roomBounds.Item2));
                                 break;
                             case 1:
                                 if (yIndex == 0)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 - 1);
+                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(bottomLeft.Item1, bottomLeft.Item1 + roomBounds.Item1), bottomLeft.Item2 - 1);
                                 break;
                             case 2:
                                 if (xIndex == 4)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(topLeft.Item1 + roomBounds.Item1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
+                                roomMap[yIndex, xIndex].addRoomExit(bottomLeft.Item1 + roomBounds.Item1, Random.Range(bottomLeft.Item2, bottomLeft.Item2 + roomBounds.Item2));
                                 break;
                             case 3:
                                 if (yIndex == 4)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 + roomBounds.Item2);
+                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(bottomLeft.Item1, bottomLeft.Item1 + roomBounds.Item1), bottomLeft.Item2 + roomBounds.Item2);
                                 break;
                         }
                     }
@@ -115,10 +118,10 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
             {
                 for (int x = 0; x < 5; ++x)
                 {
-                    (int, int) topLeft = roomMap[y, x].getRoomCorner();
-                    for (int yRoom = topLeft.Item2; yRoom < topLeft.Item2 + roomMap[y, x].getRoomBounds().Item2; ++yRoom)
+                    (int, int) bottomLeft = roomMap[y, x].getRoomCorner();
+                    for (int yRoom = bottomLeft.Item2; yRoom < bottomLeft.Item2 + roomMap[y, x].getRoomBounds().Item2; ++yRoom)
                     {
-                        for (int xRoom = topLeft.Item1; xRoom < topLeft.Item1 + roomMap[y, x].getRoomBounds().Item1; ++ xRoom)
+                        for (int xRoom = bottomLeft.Item1; xRoom < bottomLeft.Item1 + roomMap[y, x].getRoomBounds().Item1; ++ xRoom)
                         {
                             dungeonMap[xRoom, yRoom] = true;
                         }
