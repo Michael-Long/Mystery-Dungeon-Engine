@@ -97,7 +97,7 @@ MonoBehaviour:
   TopThickTIntersectSprites:
   - {fileID: 7049433312395810441, guid: 3925ce0b28fe1354ea08815a43611ed7, type: 3}
   LeftThickTIntersectSprites:
-  - {fileID: 8054746905567033076, guid: 0c80cde0c204f15419cc33ccb7147268, type: 3}
+  - {fileID: 4151567076170645340, guid: 3925ce0b28fe1354ea08815a43611ed7, type: 3}
   RightThickTIntersectSprites:
   - {fileID: 1105140226230605806, guid: 3925ce0b28fe1354ea08815a43611ed7, type: 3}
   BottomThickTIntersectSprites:
