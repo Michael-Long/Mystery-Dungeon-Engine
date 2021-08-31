@@ -1,17 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment;
+
 namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
 {
-
-
     [CreateAssetMenu(fileName = "GridGenerator", menuName = "ScriptableObjects/Generators/GridGenerator", order = 1)]
     public class GridGenerator : GeneratorInterface
     {
         // This will generate a dungeon level with a 5x5 grid of rooms, each of which connected to each other
-        public override bool[,] GenerateLevel(int xRadius, int yRadius)
+        public override EnviromentType[,] GenerateLevel(int xRadius, int yRadius)
         {
-            bool[,] dungeonMap = new bool[xRadius, yRadius];
+            EnviromentType[,] dungeonMap = new EnviromentType[xRadius, yRadius];
+            for (int x = 0; x < xRadius; ++x)
+            {
+                for (int y = 0; y < yRadius; ++y)
+                {
+                    dungeonMap[x, y] = EnviromentType.Wall;
+                }
+            }
             // roomGrid splits our working map into a 5x5, with a room in each section. All adjacent rooms are connected.
             Room[,] roomMap = new Room[5, 5];
             (int, int) gridOffset = (xRadius / 5, yRadius / 5);
@@ -56,7 +63,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                     {
                         for (int xRoomSpace = 0; xRoomSpace < roomBounds.Item1; ++xRoomSpace)
                         {
-                            roomMap[yIndex, xIndex].getRoomSpace()[yRoomSpace, xRoomSpace] = true;
+                            roomMap[yIndex, xIndex].getRoomSpace()[yRoomSpace, xRoomSpace] = EnviromentType.Floor;
                         }
                     }
 
@@ -104,7 +111,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                     }
                     foreach ((int, int) exitCoord in roomMap[y, x].getRoomExits())
                     {
-                        dungeonMap[exitCoord.Item1, exitCoord.Item2] = true;
+                        dungeonMap[exitCoord.Item1, exitCoord.Item2] = EnviromentType.Floor;
                     }
                 }
             }

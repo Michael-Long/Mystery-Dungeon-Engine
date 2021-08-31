@@ -2,31 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Assets.Utility;
+using Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment;
 
 namespace Assets.GameEngine.DungeonEngine.DungeonGen
 {
     public class Room
     {
-        private bool[,] roomSpace;
+        private EnviromentType[,] roomSpace;
         private (int, int) topLeftCorner;
         private List<(int, int)> exits;
         private bool isMonsterHouse;
 
         public Room(int x, int y)
         {
-            roomSpace = new bool[y, x];
+            roomSpace = new EnviromentType[y, x];
             topLeftCorner = (0, 0);
             exits = new List<(int, int)>();
             isMonsterHouse = false;
         }
 
-        public bool[,] getRoomSpace() {
+        public EnviromentType[,] getRoomSpace() {
             return roomSpace;
         }
 
         public void setRoomBounds(int xBound, int yBound)
         {
-            roomSpace = new bool[yBound, xBound];
+            roomSpace = new EnviromentType[yBound, xBound];
         }
 
         public (int, int) getRoomCorner()

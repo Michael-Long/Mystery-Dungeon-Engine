@@ -10,26 +10,18 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment {
         [Tooltip("This is the list of tilemaps that is to be used in this enviroment. These are walls, floors, water, etc.")]
         public List<EnviromentMap> maps;
 
-        public void produceEnviroment(bool[,] dungeonMap)
+        public void produceEnviroment(EnviromentType[,] dungeonMap)
         {
             for (int x = 0; x < dungeonMap.GetLength(0); ++x)
             {
                 for (int y = 0; y < dungeonMap.GetLength(1); ++y)
                 {
-                    // This will have to be expanded upon. Perhaps dungeon map should be EnviromentType[,] instead of bool[,]
-                    if (dungeonMap[x, y])
-                    {
-                        createTile(EnviromentType.Floor, x, y, dungeonMap);
-                    }
-                    else
-                    {
-                        createTile(EnviromentType.Wall, x, y, dungeonMap);
-                    }
+                    createTile(dungeonMap[x, y], x, y, dungeonMap);
                 }
             }
         }
 
-        private GameObject createTile(EnviromentType type, int x, int y, bool[,] dungeonMap)
+        private GameObject createTile(EnviromentType type, int x, int y, EnviromentType[,] dungeonMap)
         {
             GameObject tile = new GameObject();
             tile.transform.position = new Vector3(x, y, 0);
@@ -55,7 +47,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment {
             return tile;
         }
 
-        private long calcSprite(int x, int y, bool[,] dungeonMap)
+        private long calcSprite(int x, int y, EnviromentType[,] dungeonMap)
         {
             // Positioning format, a 3x3 grid with each section a different power of 2. This gives every combination of detection a unique value.
             // Used in connecting the found layout with a sprite.
@@ -68,7 +60,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment {
             {
                 for (int xIndex = -1; xIndex <= 1; ++xIndex)
                 {
-                    bool adjType = false;
+                    EnviromentType adjType = EnviromentType.Wall;
                     if (MathUtil.isBetweenInclusive(x + xIndex, 0, dungeonMap.GetLength(0) - 1) && MathUtil.isBetweenInclusive(y + yIndex, 0, dungeonMap.GetLength(1) - 1))
                         adjType = dungeonMap[x + xIndex, y + yIndex];
 

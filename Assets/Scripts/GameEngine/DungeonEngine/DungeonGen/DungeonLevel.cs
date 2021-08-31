@@ -25,7 +25,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
 
         public void GenerateFloor()
         {
-            bool[,] dungeonMap = generators[Random.Range(0, generators.Count - 1)].GenerateLevel(xRadius, yRadius);
+            EnviromentType[,] dungeonMap = generators[Random.Range(0, generators.Count - 1)].GenerateLevel(xRadius, yRadius);
 
             enviroment.produceEnviroment(dungeonMap);
         }
