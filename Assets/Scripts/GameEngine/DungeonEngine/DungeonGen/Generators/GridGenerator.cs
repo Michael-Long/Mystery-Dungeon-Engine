@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+using Assets.GameEngine.DungeonEngine.DungeonGen.Generators.RoomGenerators;
 using Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment;
 
 namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
@@ -12,6 +12,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
         public override EnviromentType[,] GenerateLevel(int xRadius, int yRadius)
         {
             EnviromentType[,] dungeonMap = new EnviromentType[xRadius, yRadius];
+            BoxRoomGenerator roomGen = new BoxRoomGenerator();
             for (int x = 0; x < xRadius; ++x)
             {
                 for (int y = 0; y < yRadius; ++y)
@@ -49,23 +50,10 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                     int topLeftX = Random.Range(xRange.Item1, xRange.Item2 - minRoomBounds.Item1);
                     int topLeftY = Random.Range(yRange.Item1, yRange.Item2 - minRoomBounds.Item2);
 
-                    (int, int) topLeft = (topLeftX, topLeftY);
+                    int roomBoundsX = Random.Range(minRoomBounds.Item1, xRange.Item2 - topLeftX);
+                    int roomBoundsY = Random.Range(minRoomBounds.Item2, yRange.Item2 - topLeftY);
 
-                    int roomBoundsX = Random.Range(minRoomBounds.Item1, xRange.Item2 - topLeft.Item1);
-                    int roomBoundsY = Random.Range(minRoomBounds.Item2, yRange.Item2 - topLeft.Item2);
-
-                    (int, int) roomBounds = (roomBoundsX, roomBoundsY);
-
-                    roomMap[yIndex, xIndex] = new Room(roomBounds.Item1, roomBounds.Item2);
-                    roomMap[yIndex, xIndex].setRoomCorner(topLeft.Item1, topLeft.Item2);
-
-                    for (int yRoomSpace = 0; yRoomSpace < roomBounds.Item2; ++yRoomSpace)
-                    {
-                        for (int xRoomSpace = 0; xRoomSpace < roomBounds.Item1; ++xRoomSpace)
-                        {
-                            roomMap[yIndex, xIndex].getRoomSpace()[yRoomSpace, xRoomSpace] = EnviromentType.Floor;
-                        }
-                    }
+                    roomMap[yIndex, xIndex] = roomGen.makeRoom(topLeftX, topLeftY, roomBoundsX, roomBoundsY);
 
                     for (int index = 0; index < 4; ++index)
                     {
@@ -74,22 +62,22 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators
                             case 0:
                                 if (xIndex == 0)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(topLeft.Item1 - 1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
+                                roomMap[yIndex, xIndex].addRoomExit(topLeftX - 1, Random.Range(topLeftY, topLeftY + roomBoundsY));
                                 break;
                             case 1:
                                 if (yIndex == 0)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 - 1);
+                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(topLeftX, topLeftX + roomBoundsX), topLeftY - 1);
                                 break;
                             case 2:
                                 if (xIndex == 4)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(topLeft.Item1 + roomBounds.Item1, Random.Range(topLeft.Item2, topLeft.Item2 + roomBounds.Item2));
+                                roomMap[yIndex, xIndex].addRoomExit(topLeftX + roomBoundsX, Random.Range(topLeftY, topLeftY + roomBoundsY));
                                 break;
                             case 3:
                                 if (yIndex == 4)
                                     break;
-                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(topLeft.Item1, topLeft.Item1 + roomBounds.Item1), topLeft.Item2 + roomBounds.Item2);
+                                roomMap[yIndex, xIndex].addRoomExit(Random.Range(topLeftX, topLeftX + roomBoundsX), topLeftY + roomBoundsY);
                                 break;
                         }
                     }
