@@ -47,7 +47,7 @@ namespace Assets.GameEngine.TileSpriteMapping
                         List<Sprite> spriteList = convertCalcToSpritelist(spriteIndex, wallSpriteControl);
                         Sprite selectedSprite = spriteList[Random.Range(0, spriteList.Count)];
                         GameObject goWall = Instantiate(manager.wallPrefab, targetPos, Quaternion.identity) as GameObject;
-                        goWall.name = manager.wallPrefab.name;
+                        goWall.name = manager.wallPrefab.name + " - " + spriteIndex;
                         goWall.transform.SetParent(manager.transform);
                         goWall.GetComponent<SpriteRenderer>().sprite = selectedSprite;
                     }
@@ -337,6 +337,7 @@ namespace Assets.GameEngine.TileSpriteMapping
                 case 329:
                     //BottomLeftInnerVertical
                     return spriteControl.getSpriteList(TileSheetPositions.BottomLeftInnerCornerVerticalEdge);
+                case 352:
                 case 356:
                     //BottomRightInnerVertical
                     return spriteControl.getSpriteList(TileSheetPositions.BottomRightInnerCornerVerticalEdge);

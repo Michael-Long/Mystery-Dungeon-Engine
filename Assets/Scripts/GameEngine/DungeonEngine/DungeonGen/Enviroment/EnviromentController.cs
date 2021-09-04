@@ -316,6 +316,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment {
                 case 329:
                     //BottomLeftInnerVertical
                     return EnviromentPosition.BottomLeftInnerCornerVerticalEdge;
+                case 352:
                 case 356:
                     //BottomRightInnerVertical
                     return EnviromentPosition.BottomRightInnerCornerVerticalEdge;
