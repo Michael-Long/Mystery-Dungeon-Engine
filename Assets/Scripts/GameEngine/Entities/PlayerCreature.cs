@@ -10,6 +10,7 @@ using Assets.ObjectTypes.AnimationData;
 using Assets.ObjectTypes.ItemData;
 using Assets.ObjectTypes.MoveData;
 using Assets.ObjectTypes.Creature;
+using Assets.Utility;
 
 namespace Assets.GameEngine.Entities
 {

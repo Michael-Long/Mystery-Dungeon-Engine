@@ -5,6 +5,7 @@ using UnityEngine;
 using Assets.GameEngine.DungeonEngine;
 using Assets.Logic.Animation;
 using Assets.ObjectTypes.AnimationData;
+using Assets.Utility;
 
 namespace Assets.GameEngine.Entities.AI
 {

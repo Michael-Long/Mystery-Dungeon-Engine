@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 using Assets.ObjectTypes.AnimationData;
 using Assets.Parsers;
+using Assets.Utility;
 
 namespace Assets.Editors
 {
