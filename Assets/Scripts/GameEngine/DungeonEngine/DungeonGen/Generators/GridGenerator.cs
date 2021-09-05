@@ -14,12 +14,12 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators {
         }
 
         // This will generate a dungeon level with a 5x5 grid of rooms, each of which connected to each other
-        public override EnviromentType[,] GenerateLevel(int xRadius, int yRadius) {
-            EnviromentType[,] dungeonMap = new EnviromentType[xRadius, yRadius];
+        public override DungeonMap GenerateLevel(int xRadius, int yRadius) {
+            DungeonMap dungeonMap = new DungeonMap(xRadius, yRadius);
             BoxRoomGenerator roomGen = new BoxRoomGenerator();
             for (int x = 0; x < xRadius; ++x) {
                 for (int y = 0; y < yRadius; ++y) {
-                    dungeonMap[x, y] = EnviromentType.Wall;
+                    dungeonMap.getMap()[x, y] = EnviromentType.Wall;
                 }
             }
             // roomGrid splits our working map into a 5x5, with a room in each section. All adjacent rooms are connected.
@@ -97,7 +97,8 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators {
 
             for (int y = 0; y < 5; ++y) {
                 for (int x = 0; x < 5; ++x) {
-                    DungeonGeneratorUtility.drawRoom(roomMap[y, x].room, dungeonMap);
+                    DungeonGeneratorUtility.drawRoom(roomMap[y, x].room, dungeonMap.getMap());
+                    dungeonMap.addRoom(roomMap[y, x].room);
                 }
             }
 
@@ -118,16 +119,16 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Generators {
                         if (pathOut == Direction.East) {
                             int avgX = (mainExit.Item1 + otherExit.Item1) / 2;
 
-                            DungeonGeneratorUtility.drawStraightLine(mainExit, (avgX, mainExit.Item2), dungeonMap);
-                            DungeonGeneratorUtility.drawStraightLine((avgX, mainExit.Item2), (avgX, otherExit.Item2), dungeonMap);
-                            DungeonGeneratorUtility.drawStraightLine((avgX, otherExit.Item2), otherExit, dungeonMap);
+                            DungeonGeneratorUtility.drawStraightLine(mainExit, (avgX, mainExit.Item2), dungeonMap.getMap());
+                            DungeonGeneratorUtility.drawStraightLine((avgX, mainExit.Item2), (avgX, otherExit.Item2), dungeonMap.getMap());
+                            DungeonGeneratorUtility.drawStraightLine((avgX, otherExit.Item2), otherExit, dungeonMap.getMap());
                         }
                         else {
                             int avgY = (mainExit.Item2 + otherExit.Item2) / 2;
 
-                            DungeonGeneratorUtility.drawStraightLine(mainExit, (mainExit.Item1, avgY), dungeonMap);
-                            DungeonGeneratorUtility.drawStraightLine((mainExit.Item1, avgY), (otherExit.Item1, avgY), dungeonMap);
-                            DungeonGeneratorUtility.drawStraightLine((otherExit.Item1, avgY), otherExit, dungeonMap);
+                            DungeonGeneratorUtility.drawStraightLine(mainExit, (mainExit.Item1, avgY), dungeonMap.getMap());
+                            DungeonGeneratorUtility.drawStraightLine((mainExit.Item1, avgY), (otherExit.Item1, avgY), dungeonMap.getMap());
+                            DungeonGeneratorUtility.drawStraightLine((otherExit.Item1, avgY), otherExit, dungeonMap.getMap());
                         }
                     }
                 }

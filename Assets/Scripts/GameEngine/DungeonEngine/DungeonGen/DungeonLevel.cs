@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Assets.GameEngine.DungeonEngine.DungeonGen.Generators;
 using Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment;
+using Assets.GameEngine.Entities;
 
 namespace Assets.GameEngine.DungeonEngine.DungeonGen
 {
@@ -25,9 +26,19 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
 
         public void GenerateFloor()
         {
-            EnviromentType[,] dungeonMap = generators[Random.Range(0, generators.Count - 1)].GenerateLevel(xRadius, yRadius);
+            DungeonMap dungeonMap = generators[Random.Range(0, generators.Count - 1)].GenerateLevel(xRadius, yRadius);
 
-            enviroment.produceEnviroment(dungeonMap);
+            enviroment.produceEnviroment(dungeonMap.getMap());
+
+            PlayerCreature[] players = FindObjectsOfType<PlayerCreature>();
+            foreach (PlayerCreature player in players) {
+                Room startRoom = dungeonMap.getRooms()[Random.Range(0, dungeonMap.getRooms().Count - 1)];
+
+                int startX = startRoom.getRoomCorner().Item1 + Random.Range(0, startRoom.getRoomSpace().GetLength(1));
+                int startY = startRoom.getRoomCorner().Item2 + Random.Range(0, startRoom.getRoomSpace().GetLength(0));
+
+                player.transform.position = new Vector2(startX, startY);
+            }
         }
     }
 }

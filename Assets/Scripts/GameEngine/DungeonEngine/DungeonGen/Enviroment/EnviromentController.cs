@@ -26,6 +26,7 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment {
             GameObject tile = new GameObject();
             tile.transform.position = new Vector3(x, y, 0);
             SpriteRenderer tileSprite = tile.AddComponent<SpriteRenderer>();
+            tile.AddComponent<BoxCollider2D>().size = new Vector2(1, 1);
             EnviromentPosition currPositionType = convertCalcToPosition(calcSprite(x, y, dungeonMap));
             switch (type)
             {
