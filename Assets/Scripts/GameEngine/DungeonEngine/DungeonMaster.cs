@@ -345,6 +345,22 @@ namespace Assets.GameEngine.DungeonEngine
             return AICreatures;
         }
 
+        // --- Dungeon Mechanic Functions ---
+
+        public GameObject entityOnObject(Creature entity) {
+            Collider2D hitObj = Physics2D.OverlapBox(entity.transform.position, new Vector2(0.8f, 0.8f), 0, LayerMask.GetMask("Tiles", "Items"));
+            return hitObj ? hitObj.gameObject : null;
+        }
+
+        public void processPlayerOnObject(GameObject obj) {
+            if (!obj)
+                return;
+            // Normally this would prompt some sort of UI, but since only stairs are here, we'll go to the next floor.
+            if (obj.GetComponent<Dungeon>()) {
+                currentDungeon.goToNextFloor();
+            }
+        }
+
         // --- Dungeon Management Functions ---
 
         public void CleanUp()
@@ -358,7 +374,7 @@ namespace Assets.GameEngine.DungeonEngine
 
         public void PrePlayerProcess()
         {
-
+            processPlayerOnObject(entityOnObject(Player));
         }
 
         public void PostPlayerProcess()
