@@ -5,6 +5,7 @@ using UnityEngine;
 using Assets.ObjectTypes;
 using Assets.Player;
 using Assets.GameEngine.Entities;
+using Assets.GameEngine.DungeonEngine.DungeonGen;
 
 namespace Assets.GameEngine.DungeonEngine
 {
@@ -14,12 +15,13 @@ namespace Assets.GameEngine.DungeonEngine
         // Also behaves somewhat like an API, where other features can call stuff on it for data/algorithms. Reusable stuff should be here and labeled well.
 
         // This is also a key spot to put A LOT of error checking and logging, since lots of stuff will be using these functions. It'll be handy in finding bugs early.
+        [Tooltip("This is the dungeon we're currently working with. It holds the information for this particular dungeon.")]
+        public Dungeon currentDungeon = null;
 
         private PlayerCreature Player = null;
         private List<AICreature> Teammates = new List<AICreature>();
         private List<AICreature> Escorts = new List<AICreature>();
         private List<AICreature> Enemies = new List<AICreature>();
-
         private List<Item> Items = new List<Item>();
 
         public void Awake()
@@ -51,6 +53,7 @@ namespace Assets.GameEngine.DungeonEngine
         public void Start()
         {
             StartCoroutine(toggleSpeedUp());
+            currentDungeon.enterDungeon();
         }
 
         public void RefreshObjects()
