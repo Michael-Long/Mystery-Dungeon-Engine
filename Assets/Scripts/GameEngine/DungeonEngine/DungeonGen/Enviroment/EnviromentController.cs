@@ -21,12 +21,18 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen.Enviroment {
             }
         }
 
+        public void clearEnviroment() {
+            foreach (EnviromentTile tile in FindObjectsOfType<EnviromentTile>())
+                Destroy(tile.gameObject);
+        }
+
         private GameObject createTile(EnviromentType type, int x, int y, EnviromentType[,] dungeonMap)
         {
             GameObject tile = new GameObject();
             tile.transform.position = new Vector3(x, y, 0);
             SpriteRenderer tileSprite = tile.AddComponent<SpriteRenderer>();
             tile.AddComponent<BoxCollider2D>().size = new Vector2(1, 1);
+            tile.AddComponent<EnviromentTile>();
             EnviromentPosition currPositionType = convertCalcToPosition(calcSprite(x, y, dungeonMap));
             switch (type)
             {

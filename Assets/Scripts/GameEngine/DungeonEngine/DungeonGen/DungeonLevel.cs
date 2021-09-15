@@ -28,6 +28,8 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
 
         public void GenerateFloor()
         {
+            enviroment.clearEnviroment();
+
             currentFloor = generators[Random.Range(0, generators.Count - 1)].GenerateLevel(xRadius, yRadius);
 
             enviroment.produceEnviroment(currentFloor.getMap());

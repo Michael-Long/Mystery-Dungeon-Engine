@@ -28,7 +28,7 @@ namespace Assets.GameEngine.Entities
 
         public override IEnumerator DoAction()
         {
-            SetActionState(false);
+            setActionState(ActionState.Processing);
             do
             {
                 if (AI && !AI.IsProcessing())
@@ -40,7 +40,7 @@ namespace Assets.GameEngine.Entities
                 }
                 yield return null;
             } while (AI.IsProcessing());
-            SetActionState(true);
+            setActionState(ActionState.Complete);
         }
 
         public override EntityType GetEntityType()

@@ -9,20 +9,20 @@ namespace Assets.GameEngine.Entities
 {
     public abstract class Entity : MonoBehaviour
     {
-        private bool actionComplete = false;
+        private ActionState state = ActionState.Waiting;
 
         public abstract IEnumerator DoAction();
         public abstract EntityType GetEntityType();
         public abstract LegacyAnimationController GetAnimationController();
 
-        public bool IsActionComplete()
+        public ActionState getActionState()
         {
-            return actionComplete;
+            return state;
         }
 
-        public void SetActionState(bool actionState)
+        public void setActionState(ActionState actionState)
         {
-            actionComplete = actionState;
+            state = actionState;
         }
     }
 }

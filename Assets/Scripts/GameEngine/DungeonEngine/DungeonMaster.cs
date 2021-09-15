@@ -374,7 +374,7 @@ namespace Assets.GameEngine.DungeonEngine
 
         public void PrePlayerProcess()
         {
-            processPlayerOnObject(entityOnObject(Player));
+            
         }
 
         public void PostPlayerProcess()
@@ -389,7 +389,7 @@ namespace Assets.GameEngine.DungeonEngine
 
         public void PostMovementProcess()
         {
-
+            processPlayerOnObject(entityOnObject(Player));
         }
 
         public void PreTeammateProcess()

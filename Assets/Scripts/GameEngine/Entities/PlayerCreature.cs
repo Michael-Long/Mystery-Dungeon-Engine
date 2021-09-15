@@ -47,8 +47,8 @@ namespace Assets.GameEngine.Entities
 
         public override IEnumerator DoAction()
         {
-            SetActionState(false);
-            while (!IsActionComplete())
+            setActionState(ActionState.Waiting);
+            while (getActionState() != ActionState.Processing)
             {
                 while (!Input.anyKey)
                 {
@@ -108,6 +108,7 @@ namespace Assets.GameEngine.Entities
         private IEnumerator MovePlayer(Vector2 targetPos)
         {
             isMoving = true;
+            setActionState(ActionState.Processing);
             AnimationDirection direction = AnimationHelper.convertMovementToDirection(transform.position, targetPos);
             AnimationController.StartNewAnimation(AnimationType.Walk, direction);
             GameObject blockMovement = new GameObject("PlayerBlocker");
@@ -122,8 +123,6 @@ namespace Assets.GameEngine.Entities
                 RunningMultiplier = 3f;
             }
 
-            SetActionState(true);
-
             while (Vector2.Distance(transform.position, targetPos) > 0.01f)
             {
                 transform.position = Vector2.MoveTowards(transform.position, targetPos, 3 * RunningMultiplier * Time.deltaTime);
@@ -134,6 +133,7 @@ namespace Assets.GameEngine.Entities
             if (Controls.GetPressedPlayerControls().Count == 0)
                 AnimationController.StartNewAnimation(AnimationType.Idle, direction);
             Destroy(blockMovement);
+            setActionState(ActionState.Complete);
         }
     }
 }
