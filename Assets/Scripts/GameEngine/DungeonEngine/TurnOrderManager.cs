@@ -41,16 +41,20 @@ namespace Assets.GameEngine.DungeonEngine
 
             CurrentState = TurnState.Player;
             StartCoroutine(DM.GetPlayer().DoAction());
-            while (!DM.GetPlayer().GetComponent<Creature>().IsActionComplete())
+            while (DM.GetPlayer().GetComponent<Creature>().getActionState() == ActionState.Waiting)
             {
                 yield return null;
             }
+
+            StartCoroutine(MovementTurn());
+            while (DM.GetPlayer().GetComponent<Creature>().getActionState() == ActionState.Processing)
+                yield return null;
 
             CurrentState = TurnState.PostPlayer;
             DM.PostPlayerProcess();
 
             yield return null;
-            StartCoroutine(MovementTurn());
+
         }
 
         private IEnumerator MovementTurn()
@@ -66,6 +70,13 @@ namespace Assets.GameEngine.DungeonEngine
                     StartCoroutine(AI.DoAction());
             }
 
+            bool stillMoving = false;
+            do {
+                stillMoving = false;
+                foreach (AICreature AI in DM.GetAllAICreatures())
+                    stillMoving = AI.getActionState() == ActionState.Processing || stillMoving;
+            } while (stillMoving);
+
             CurrentState = TurnState.PostMovement;
             DM.PostMovementProcess();
 
@@ -75,11 +86,6 @@ namespace Assets.GameEngine.DungeonEngine
 
         private IEnumerator FriendlyTurn()
         {
-            while (!DM.GetPlayer().IsActionComplete())
-            {
-                yield return null;
-            }
-
             CurrentState = TurnState.PreTeammates;
             DM.PreTeammateProcess();
 
@@ -90,7 +96,7 @@ namespace Assets.GameEngine.DungeonEngine
                 if (!Friendly.IsMovementAction())
                 {
                     StartCoroutine(Friendly.DoAction());
-                    while (!Friendly.IsActionComplete())
+                    while (Friendly.getActionState() != ActionState.Complete)
                     {
                         yield return null;
                     }
@@ -115,7 +121,7 @@ namespace Assets.GameEngine.DungeonEngine
                 if (!Enemy.IsMovementAction())
                 {
                     StartCoroutine(Enemy.DoAction());
-                    while (!Enemy.IsActionComplete())
+                    while (Enemy.getActionState() != ActionState.Complete)
                     {
                         yield return null;
                     }
