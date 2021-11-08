@@ -130,9 +130,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: daf30276534bf7c4f8b14c5f8705f8b6, type: 2}
+  nickname: 
   isShiny: 0
   experienceGrowthOption: 0
   currentLevel: 1
+  currentHP: 1
+  currentBelly: 1
+  maxBelly: 100
   currentStats:
     HP: 1
     attack: 1

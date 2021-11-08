@@ -26,16 +26,16 @@ namespace Assets.UI.Dungeon {
             Name.text = " " + name;
         }
 
-        public void setLevel(short currLevel) {
+        public void setLevel(int currLevel) {
             Level.text = " Lv: " + currLevel;
         }
 
-        public void setHP(short currHP) {
+        public void setHP(int currHP) {
             this.currHP = currHP;
             updateHP();
         }
 
-        public void setMaxHP(short maxHP) {
+        public void setMaxHP(int maxHP) {
             this.maxHP = maxHP;
             updateHP();
         }
@@ -44,12 +44,12 @@ namespace Assets.UI.Dungeon {
             HP.text = " HP: " + currHP + "/" + maxHP;
         }
 
-        public void setBelly(short currBelly) {
+        public void setBelly(int currBelly) {
             this.currBelly = currBelly;
             updateBelly();
         }
 
-        public void setMaxBelly(short maxBelly) {
+        public void setMaxBelly(int maxBelly) {
             this.maxBelly = maxBelly;
             updateBelly();
         }

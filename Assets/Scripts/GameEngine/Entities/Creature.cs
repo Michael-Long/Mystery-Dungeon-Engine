@@ -22,6 +22,8 @@ namespace Assets.GameEngine.Entities
         [Header("Main Data")]
         [Tooltip("Determines the data to base this creature instance off of")]
         public CreatureData data;
+        [Tooltip("Creature's Nickname. If none is present, the species name will be used.")]
+        public string nickname = "";
         [Tooltip("Is this creature instance a 'shiny'? Does it use its alternate colors?")]
         public bool isShiny = false;
         [Tooltip("Determines the method to calculate the growth rate of a creature. 'Calculated' will create a formula based on a maximum amount of experience needed" +
@@ -33,6 +35,13 @@ namespace Assets.GameEngine.Entities
         [Tooltip("Creature's Current Level")]
         [Min(1)]
         public int currentLevel = 1;
+        [Tooltip("Creature's Current Health")]
+        [Min(0)]
+        public int currentHP = 1;
+        [Tooltip("Creature's Current Belly")]
+        public int currentBelly = 1;
+        [Tooltip("Creature's Max Belly")]
+        public int maxBelly = 100;
         [Tooltip("Creature's current Stats")]
         public Stats currentStats = new Stats();
         [Tooltip("Creature's total accumulated experience")]
@@ -51,5 +60,11 @@ namespace Assets.GameEngine.Entities
         public List<Status> activeStatuses = new List<Status>();
 
         public abstract void setRunning(bool isRunning);
+
+        public string getName() {
+            if (string.IsNullOrEmpty(nickname))
+                return data.species;
+            return nickname;
+        }
     }
 }

@@ -345,6 +345,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Test_Player_Data
       objectReference: {fileID: 0}
+    - target: {fileID: 4851719210083966659, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: nickname
+      value: North
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851719210083966659, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: currentHP
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851719210083966659, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: currentBelly
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851719210083966659, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: currentLevel
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851719210083966659, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: currentStats.HP
+      value: 192
+      objectReference: {fileID: 0}
     - target: {fileID: 5272421677425909469, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
       propertyPath: m_RootOrder
       value: 0

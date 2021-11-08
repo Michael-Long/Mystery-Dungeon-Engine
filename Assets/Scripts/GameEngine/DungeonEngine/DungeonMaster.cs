@@ -6,6 +6,7 @@ using Assets.ObjectTypes;
 using Assets.Player;
 using Assets.GameEngine.Entities;
 using Assets.GameEngine.DungeonEngine.DungeonGen;
+using Assets.UI.Dungeon;
 
 namespace Assets.GameEngine.DungeonEngine
 {
@@ -18,6 +19,8 @@ namespace Assets.GameEngine.DungeonEngine
         [Tooltip("This is the dungeon we're currently working with. It holds the information for this particular dungeon.")]
         public Dungeon currentDungeon = null;
 
+        private PartyUI partyUI = null;
+
         private PlayerCreature Player = null;
         private List<AICreature> Teammates = new List<AICreature>();
         private List<AICreature> Escorts = new List<AICreature>();
@@ -26,6 +29,9 @@ namespace Assets.GameEngine.DungeonEngine
 
         public void Awake()
         {
+            if (!currentDungeon)
+                Debug.LogError("No Dungeon Assigned. Dungeon Events won't occur.");
+
             Entity[] EntityList = FindObjectsOfType<Entity>();
             foreach (Entity entity in EntityList)
             {
@@ -48,12 +54,30 @@ namespace Assets.GameEngine.DungeonEngine
                         break;
                 }
             }
+
+            partyUI = FindObjectOfType<PartyUI>();
+            if (!partyUI)
+                Debug.LogError("Couldn't find PartyUI! UI Events cannot occur.");
         }
 
         public void Start()
         {
             StartCoroutine(toggleSpeedUp());
-            currentDungeon.enterDungeon();
+            if (currentDungeon)
+                currentDungeon.enterDungeon();
+            if (partyUI) {
+                for (int index = 0; index < 4; ++index) {
+                    partyUI.SetTeammateVisible(index, false);
+                }
+
+                if (Player)
+                    setTeammateUI(Player, 0);
+                int count = 1;
+                foreach (AICreature entity in Teammates) {
+                    setTeammateUI(entity, count);
+                    ++count;
+                }
+            }
         }
 
         public void RefreshObjects()
@@ -86,6 +110,21 @@ namespace Assets.GameEngine.DungeonEngine
                         break;
                 }
             }
+        }
+
+        // --- Team UI Methods ---
+
+        public void setTeammateUI(Creature mate, int index) {
+            partyUI.SetTeammateName(index, mate.getName());
+            partyUI.SetTeammateLevel(index, mate.currentLevel);
+
+            partyUI.SetTeammateMaxHealth(index, mate.currentStats.HP);
+            partyUI.SetTeammateHealth(index, mate.currentHP);
+
+            partyUI.SetTeammateMaxBelly(index, mate.maxBelly);
+            partyUI.SetTeammateBelly(index, mate.currentBelly);
+
+            partyUI.SetTeammateVisible(index, true);
         }
 
         // --- Player Methods ---
@@ -356,7 +395,7 @@ namespace Assets.GameEngine.DungeonEngine
             if (!obj)
                 return;
             // Normally this would prompt some sort of UI, but since only stairs are here, we'll go to the next floor.
-            if (obj.GetComponent<Dungeon>()) {
+            if (obj.GetComponent<Dungeon>() && currentDungeon) {
                 currentDungeon.goToNextFloor();
             }
         }
