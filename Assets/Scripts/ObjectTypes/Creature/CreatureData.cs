@@ -63,6 +63,10 @@ namespace Assets.ObjectTypes.Creature
         [Tooltip("Creature's secondary elemental type, if any")]
         public ElementType secondaryType = ElementType.None;
 
+        [Header("Sprites")]
+        [Tooltip("The portrait file for this creature")]
+        public Sprite portriat = null;
+
         [Header("Evolution")]
         [Tooltip("Creature's collection evolution data, if any")]
         public List<Evolution> evolution = new List<Evolution>();

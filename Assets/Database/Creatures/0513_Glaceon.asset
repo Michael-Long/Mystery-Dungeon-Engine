@@ -12,39 +12,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4061115567bf8ae46955c7bf31a1115e, type: 3}
   m_Name: 0513_Glaceon
   m_EditorClassIdentifier: 
-  creatureNo: 0
-  species: 
-  category: 
-  possibleGender: 0
-  primaryType: 0
+  creatureNo: 471
+  species: Glaceon
+  category: Fresh Snow
+  possibleGender: 3
+  primaryType: 6
   secondaryType: 0
-  evolution: []
+  portriat: {fileID: -7796244477371446128, guid: cb2da9798346fdf498a1dd3208abe620, type: 3}
+  evolution:
+  - nextEvo: 133
+    evolutionType: 3
+    evolutionRequirement: 165
+    optionalEvolutionItem: 0
   primaryAbility: {fileID: 0}
   secondaryAbility: {fileID: 0}
   secretAbility: {fileID: 0}
   movementType: 0
-  bodySize: 0
-  size: 0
-  weight: 0
-  recruitRate: 0
-  recruitRate2: 0
+  bodySize: 1
+  size: 30
+  weight: 179
+  recruitRate: -100
+  recruitRate2: -100
   iQGroup: {fileID: 0}
-  expYield: 0
+  expYield: 35
   exclusiveItems: []
   baseStats:
-    HP: 1
-    attack: 1
-    defense: 1
-    spAttack: 1
-    spDefense: 1
+    HP: 25
+    attack: 4
+    defense: 5
+    spAttack: 3
+    spDefense: 5
   totalStats:
-    HP: 1
-    attack: 1
-    defense: 1
-    spAttack: 1
-    spDefense: 1
+    HP: 158
+    attack: 106
+    defense: 92
+    spAttack: 100
+    spDefense: 92
   experienceFormula: 2
-  totalExp: 0
-  levelUpMoves: []
+  totalExp: 2768806
+  levelUpMoves:
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 1
+  - move: {fileID: 0}
+    level: 8
+  - move: {fileID: 0}
+    level: 15
+  - move: {fileID: 0}
+    level: 22
+  - move: {fileID: 0}
+    level: 29
+  - move: {fileID: 0}
+    level: 36
+  - move: {fileID: 0}
+    level: 43
+  - move: {fileID: 0}
+    level: 50
+  - move: {fileID: 0}
+    level: 57
+  - move: {fileID: 0}
+    level: 64
+  - move: {fileID: 0}
+    level: 71
+  - move: {fileID: 0}
+    level: 78
   eggMoves: []
   tmMoves: []
