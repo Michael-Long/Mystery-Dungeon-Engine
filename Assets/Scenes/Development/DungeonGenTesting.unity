@@ -346,6 +346,10 @@ PrefabInstance:
       value: Test_Player_Data
       objectReference: {fileID: 0}
     - target: {fileID: 4851719210083966659, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: daf30276534bf7c4f8b14c5f8705f8b6, type: 2}
+    - target: {fileID: 4851719210083966659, guid: c631179eb6b1baf46ae80e43977f7082, type: 3}
       propertyPath: nickname
       value: North
       objectReference: {fileID: 0}

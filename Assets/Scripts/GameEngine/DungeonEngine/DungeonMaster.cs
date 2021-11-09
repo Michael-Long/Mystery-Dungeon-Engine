@@ -121,6 +121,8 @@ namespace Assets.GameEngine.DungeonEngine
         // --- Team UI Methods ---
 
         public void setTeammateUI(Creature mate, int index) {
+            partyUI.SetTeammatePortriat(index, mate.data.portriat);
+
             partyUI.SetTeammateName(index, mate.getName());
             partyUI.SetTeammateLevel(index, mate.currentLevel);
 
