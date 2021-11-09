@@ -31,5 +31,9 @@ namespace Assets.GameEngine.DungeonEngine.DungeonGen
             ++currentFloor;
             dungeonLevels[currentFloor].GenerateFloor();
         }
+
+        public int getCurrentFloorNo() {
+            return currentFloor + 1;
+        }
     }
 }

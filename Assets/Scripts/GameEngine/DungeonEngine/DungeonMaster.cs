@@ -20,6 +20,7 @@ namespace Assets.GameEngine.DungeonEngine
         public Dungeon currentDungeon = null;
 
         private PartyUI partyUI = null;
+        private DungeonUI dungeonUI = null;
 
         private PlayerCreature Player = null;
         private List<AICreature> Teammates = new List<AICreature>();
@@ -57,7 +58,10 @@ namespace Assets.GameEngine.DungeonEngine
 
             partyUI = FindObjectOfType<PartyUI>();
             if (!partyUI)
-                Debug.LogError("Couldn't find PartyUI! UI Events cannot occur.");
+                Debug.LogError("Couldn't find PartyUI! Party UI Events cannot occur.");
+            dungeonUI = FindObjectOfType<DungeonUI>();
+            if (!dungeonUI)
+                Debug.LogError("Couldn't find DungeonUI! Dungeon UI Events cannot occur.");
         }
 
         public void Start()
@@ -78,6 +82,8 @@ namespace Assets.GameEngine.DungeonEngine
                     ++count;
                 }
             }
+            if (dungeonUI && currentDungeon)
+                setupDungeonUI(currentDungeon);
         }
 
         public void RefreshObjects()
@@ -125,6 +131,15 @@ namespace Assets.GameEngine.DungeonEngine
             partyUI.SetTeammateBelly(index, mate.currentBelly);
 
             partyUI.SetTeammateVisible(index, true);
+        }
+
+        // --- Dungeon UI Methods ---
+
+        public void setupDungeonUI(Dungeon currentDungeon) {
+            if (dungeonUI) {
+                dungeonUI.setName(currentDungeon.dungeonName);
+                dungeonUI.setFloor(currentDungeon.getCurrentFloorNo(), !currentDungeon.isUpwards);
+            }
         }
 
         // --- Player Methods ---
@@ -397,6 +412,8 @@ namespace Assets.GameEngine.DungeonEngine
             // Normally this would prompt some sort of UI, but since only stairs are here, we'll go to the next floor.
             if (obj.GetComponent<Dungeon>() && currentDungeon) {
                 currentDungeon.goToNextFloor();
+                if (dungeonUI)
+                    dungeonUI.setFloor(currentDungeon.getCurrentFloorNo(), !currentDungeon.isUpwards);
             }
         }
 
